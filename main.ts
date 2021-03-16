@@ -1,0 +1,1 @@
+radio.setTransmitPower(7)
