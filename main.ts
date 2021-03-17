@@ -1,7 +1,40 @@
-
-radio.setTransmitPower(7)
-radio.setGroup(1)
-
+radio.onReceivedNumber(function (receivedNumber) {
+    if (receivedNumber == 0) {
+        basic.showLeds(`
+            . . . . .
+            . # # # .
+            . # # # .
+            . # # # .
+            . . . . .
+            `)
+    }
+    if (receivedNumber == 1) {
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            . # # # .
+            . . . . .
+            . . . . .
+            `)
+    }
+    if (receivedNumber == 2) {
+        basic.showLeds(`
+            # . . . #
+            . # . # .
+            . . # . .
+            . # . # .
+            # . . . #
+            `)
+    }
+    basic.pause(100)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+})
 input.onButtonPressed(Button.A, function () {
     basic.showLeds(`
         . . . . .
@@ -59,41 +92,5 @@ input.onGesture(Gesture.Shake, function () {
         `)
     basic.pause(100)
 })
-
-radio.onReceivedNumber(function (receivedNumber) {
-    if (receivedNumber == 0) {
-        basic.showLeds(`
-            . . . . .
-            . # # # .
-            . # # # .
-            . # # # .
-            . . . . .
-            `)
-    }
-    if (receivedNumber == 1) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            . # # # .
-            . . . . .
-            . . . . .
-            `)
-    }
-    if (receivedNumber == 2) {
-        basic.showLeds(`
-            # . . . #
-            . # . # .
-            . . # . .
-            . # . # .
-            # . . . #
-            `)
-    }
-    basic.pause(100)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        `)
-})
+radio.setTransmitPower(7)
+radio.setGroup(1)
