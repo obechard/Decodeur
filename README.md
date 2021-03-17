@@ -1,31 +1,151 @@
+# Décodeur
+## Définir le groupe radio
+Pour pouvoir envoyer un message, tu dois d'abord régler la fonction radio.
+1. Dans l'onglet Radio, fais glisser le bloc ||radio définir puissance de transmission (7)|| et insère-le dans le bloc ||au démarrage||. 
+2. Choisis ensuite le bloc ||radio définir groupe|| et place-le sous le bloc ||radio définir puissance de transmission (7)||.
+3. Clique sur le bouton « Suivant », dans le coin supérieur droit de l'écran, pour passer aux instructions suivantes.
 
-> Open this page at [https://obechard.github.io/decodeur/](https://obechard.github.io/decodeur/)
+radio.setTransmitPower(7)
+radio.setGroup(1)
+```
+## Programmer le point
+Maintenant, tu dois programmer le point du code morse que tu enverras à ton coéquipier.
+1. Fais glisser le bloc ||entrée: lorsque le bouton A est pressé|| dans ton espace de travail. 
+2. Ensuite, fais glisser le bloc ||base: montrer LEDs|| et insère-le dans ||entrée: lorsque le bouton A est pressé||. 
+3. Choisis les carrés qui devront s'allumer. Assure-toi qu'ensemble, ils ont la forme d'un point. 
+4. Dans l'onglet Radio, choisis le bloc ||envoyer le nombre (0) par radio|| et place-le sous le bloc ||montrer LEDs||.
+5. Ajoute un bloc ||base: pause (ms)|| à la séquence. 
+6. Enfin, ajoute un deuxième ||base: montrer LEDs|| et un autre ||base: pause (ms)|| pour compléter la séquence. Tu n'as pas à choisir de carrés cette fois-ci. Cela correspond à une pause entre tes codes
 
-## Use as Extension
+input.onButtonPressed(Button.A, function () {
+    basic.showLeds(`
+        . . . . .
+        . # # # .
+        . # # # .
+        . # # # .
+        . . . . .
+        `)
+    radio.sendNumber(0)
+    basic.pause(100)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.pause(100)
+})
 
-This repository can be added as an **extension** in MakeCode.
+## Programmer le tiret
+ 
+À part quelques petites différences, les étapes de programmation du tiret sont presque les mêmes que celles pour le point. 
+ 
+1. Fais glisser un nouveau bloc ||entrée: lorsque le bouton A est pressé||. Remplace le A par un B. 
+2. Ajoute un nouveau bloc ||base: pause (ms)|| à la séquence. Choisis les carrés qui formeront un tiret. Clique sur le bouton d'indice si tu as des doutes. 
+3. Ajoute ensuite un bloc ||envoyer le nombre par radio||. Remplace le 0 par un 1.
+4. Ajoute un bloc ||base: pause (ms)||. 
+5. Enfin, ajoute un bloc ||base: montrer LEDs|| vide et un autre ||base: pause (ms)|| pour terminer la séquence. 
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/obechard/decodeur** and import
+input.onButtonPressed(Button.B, function () {
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . # # # .
+        . . . . .
+        . . . . .
+        `)
+    radio.sendNumber(1)
+    basic.pause(100)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.pause(100)
+})
 
-## Edit this project ![Build status badge](https://github.com/obechard/decodeur/workflows/MakeCode/badge.svg)
+## Programmer un symbole de fin de message
+Pour que ton ou ta partenaire sache que ton message est terminé, nous allons programmer un autre symbole en suivant les mêmes étapes que les deux dernières séquences.
+1. Fais glisser un bloc ||entrée: lorsque secouer||. 
+2. Ajoute un nouveau bloc ||base: montrer LEDs|| à la séquence. Choisis les carrés qui formeront un X. 
+3. Ajoute un bloc ||radio: envoyer le nombre par radio||. Remplace le 0 par un 2. 
+4. Ajoute ensuite un bloc ||base: pause (ms)||. 
+5. Enfin, ajoute un bloc ||base: montrer LEDs|| vide et un bloc ||base: pause (ms)|| pour terminer la séquence.
 
-To edit this repository in MakeCode.
+input.onGesture(Gesture.Shake, function () {
+    basic.showLeds(`
+        # . . . #
+        . # . # .
+        . . # . .
+        . # . # .
+        # . . . #
+        `)
+    radio.sendNumber(2)
+    basic.pause(100)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.pause(100)
+})
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/obechard/decodeur** and click import
+## Programmer la radio pour recevoir des messages
+ 
+Cette dernière séquence te permettra de recevoir des messages de ton ou ta partenaire. Suis les étapes très attentivement, et utilise le bouton d'indice si tu as besoin d'une aide visuelle. 
+ 
+1. Pour commencer, choisis le bloc ||radio: quand une donnée est reçue par radio (receiveNumber)|| et dépose-le dans ton espace de travail. 
+2. Ensuite, choisis le bloc ||logique: si vrai alors||. Insère-le dans le bloc ||radio: quand une donnée est reçue par radio||. 
+3. Tu dois modifier la variable « vrai » dans la fonction logique. Place un bloc ||logique: 0=0|| par-dessus ||logique: vrai||.
+4. Tu dois maintenant créer une nouvelle ||variable||. Nomme-la « receivedNumber ». Remplace le premier ||logique: 0|| de la fonction que tu viens d'ajouter par ||variable: receivedNumber||.
+5. Dans le bloc ||logique: si…alors||, tu dois ajouter un ||base: montrer LEDs|| sous la section « si ». Choisis les DEL qui formeront un point. 
+6. Clique sur le + au bas du bloc ||logique: si...alors|| afin d'ajouter une autre condition à ta variable.
+7. Remplace le ||logique: vrai|| par ||logique: 0=0||, puis remplace le premier 0 par ||variable: receivedNumber||. Remplace le deuxième 0 par un 1. 
+8. Ajoute un deuxième ||base: montrer LEDs|| à la séquence. Choisis les carrés qui formeront un tiret. 
+9. Clique sur le + encore une fois afin d'ajouter un autre bloc ||logique: si...alors||. Ajoute un bloc ||logique: 0=0|| et remplace le premier 0 par ||variable: receivedNumber||. Remplace le deuxième 0 par un 2.
+10. Ajoute un bloc ||base: montrer LEDs|| et choisis les carrés qui formeront le symbole X.
+11. La toute dernière étape est d'ajouter un bloc ||base: pause (ms)|| puis un bloc ||base: montrer LEDs|| vide. 
 
-## Blocks preview
-
-This image shows the blocks code from the last commit in master.
-This image may take a few minutes to refresh.
-
-![A rendered view of the blocks](https://github.com/obechard/decodeur/raw/master/.github/makecode/blocks.png)
-
-#### Metadata (used for search, rendering)
-
-* for PXT/microbit
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
+radio.onReceivedNumber(function (receivedNumber) {
+    let receivedNumber = 0
+    if (receivedNumber == 0) {
+        basic.showLeds(`
+            . . . . .
+            . # # # .
+            . # # # .
+            . # # # .
+            . . . . .
+            `)
+    }
+    if (receivedNumber == 1) {
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            . # # # .
+            . . . . .
+            . . . . .
+            `)
+    }
+    if (receivedNumber == 2) {
+        basic.showLeds(`
+            # . . . #
+            . # . # .
+            . . # . .
+            . # . # .
+            # . . . #
+            `)
+    }
+    basic.pause(100)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+})
