@@ -1,4 +1,9 @@
 # Décodeur
+
+Bienvenue au tutoriel « Décodeur » du Musée des sciences et de la technologie du Canada.
+
+Cette activité nécessite 2 joueurs. Tu vas coder les symboles qui composent le code Morse, un point et un tiret. Tu vas pouvoir utiliser ces symboles pour envoyer des messages codés à ton partenaire. Peux-tu le déchiffrer ?
+
 ## Définir le groupe radio
 Pour pouvoir envoyer un message, tu dois d'abord régler la fonction radio.
 1. Dans l'onglet Radio, fais glisser le bloc ``||radio: définir puissance de transmission (7)||`` et insère-le dans le bloc ``||basic: au démarrage||``. 
@@ -232,3 +237,9 @@ radio.onReceivedNumber(function (receivedNumber) {
         `)
 })
 ```
+### 
+Félicitations, tu as réussi la programmation de l'activité « Décodeur ». Maintenant il est temps de jouer! 
+1. Télécharge ta programmation en la sauvegardant sur un disque local.
+2. Fais glisser ton fichier .hex sauvegardé vers ton micro:bit (assure-toi qu'il est relié par connexion USB).
+3. Débranchez le micro:bit de l'ordinateur et ajoutez le bloc-piles.
+4. Essayez-le contre un autre joueur qui possède également un micro:bit codé dans le même groupe radio.
