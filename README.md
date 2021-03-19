@@ -141,7 +141,7 @@ input.onGesture(Gesture.Shake, function () {
 })
 ```
 
-## Programmer la radio pour recevoir des messages
+## Programmer la radio pour recevoir un point
  
 Cette dernière séquence te permettra de recevoir des messages de ton ou ta partenaire. Suis les étapes très attentivement, et utilise le bouton d'indice si tu as besoin d'une aide visuelle. 
  
@@ -164,7 +164,7 @@ radio.onReceivedNumber(function (receivedNumber) {
     }
 ```
 
-## 
+## Programmer la radio pour recevoir un tiret
 1. Clique sur le + au bas du bloc ``||logic: si...alors||`` afin d'ajouter une autre condition à ta variable.
 2. Remplace le ``||logic: vrai||`` par ``||logic: 0=0||``, puis remplace le premier 0 par ``||variable: receivedNumber||``. Remplace le deuxième 0 par un 1. 
 3. Ajoute un deuxième ``||basic: montrer LEDs||`` à la séquence. Choisis les carrés qui formeront un tiret. 
@@ -193,9 +193,9 @@ radio.onReceivedNumber(function (receivedNumber) {
     }
 ```
 
-## 
-3. Ajoute un bloc ``||basic: montrer LEDs||`` et choisis les carrés qui formeront le symbole X.
-4. La toute dernière étape est d'ajouter un bloc ``||basic: pause (ms)||`` puis un bloc ``||basic: montrer LEDs||`` vide. 
+## Programmer la radio pour recevoir le symbole pour fin de message
+1. Ajoute un bloc ``||basic: montrer LEDs||`` et choisis les carrés qui formeront le symbole X.
+2. La toute dernière étape est d'ajouter un bloc ``||basic: pause (ms)||`` puis un bloc ``||basic: montrer LEDs||`` vide. 
 
 ```blocks
 radio.onReceivedNumber(function (receivedNumber) {
@@ -237,7 +237,7 @@ radio.onReceivedNumber(function (receivedNumber) {
         `)
 })
 ```
-### 
+### Une dernière étape
 Félicitations, tu as réussi la programmation de l'activité « Décodeur ». Maintenant il est temps de jouer! 
 1. Télécharge ta programmation en la sauvegardant sur un disque local.
 2. Fais glisser ton fichier .hex sauvegardé vers ton micro:bit (assure-toi qu'il est relié par connexion USB).
